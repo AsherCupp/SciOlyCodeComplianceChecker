@@ -6,7 +6,7 @@ A small web app that helps Science Olympiad Event Supervisors review a team's co
 
 ## Walkthrough video
 
-A short screencast aimed at non-technical reviewers (script in [`VIDEO-SCRIPT.md`](VIDEO-SCRIPT.md)):
+A short screencast aimed at non-technical reviewers :
 
 ▶ **[Watch on YouTube](https://youtu.be/frisx3U5WDE)**
 
