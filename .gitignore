@@ -1,0 +1,21 @@
+# Secrets — NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Dependencies (installed via `npm install`)
+node_modules/
+
+# Runtime logs
+logs/
+*.log
+
+# Local tool/editor state
+.claude/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini

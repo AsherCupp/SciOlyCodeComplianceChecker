@@ -1,0 +1,116 @@
+ROBOT TOUR C - PROGRAM COMPLIANCE RULES
+========================================
+For use with automated code compliance checking.
+Based on 2026 Science Olympiad Robot Tour C rules.
+ 
+OVERVIEW
+--------
+Teams design, build, program, and test one Robotic Vehicle to navigate a track
+to reach a target at a set amount of time as accurately and efficiently as possible.
+The Robot must be fully autonomous. All navigation logic must be written by the student.
+ 
+EVENT PARAMETERS (for context when evaluating code)
+----------------------------------------------------
+- Target Time: announced after impound (60-80s Regionals, 55-75s States, 50-65s Nationals)
+- Track: 2m x 2.5m grid with 50cm x 50cm zones
+- Gate Zones: 4 (Regionals), 5 (States), 6 (Nationals)
+- Water Bottles: 3 (Regionals), 4 (States), 5 (Nationals)
+- Obstacles: Up to 10 wooden 2x4s placed on track lines
+ 
+PROGRAM RESTRICTIONS — CHECKLIST FOR CODE REVIEW
+-------------------------------------------------
+ 
+RULE 1 — LIBRARIES
+The Robot's program may use libraries, subject to ALL of the following conditions:
+ 
+  1a. Libraries must not be viewed or modified by competitors during the event.
+      FLAG IF: Code imports a library that appears to have been edited or is non-standard.
+ 
+  1b. Libraries must not accept event parameters as inputs, whether directly or indirectly.
+      Event parameters include: target time, gate zone locations, obstacle locations,
+      water bottle locations, start point, target point, or any competition-specific values.
+      FLAG IF: A library function is called with distance, time, or coordinate values
+      that correspond to event parameters (e.g., driveToTarget(distance, time),
+      navigate(targetX, targetY), moveVehicle(distance, time)).
+ 
+  1c. Libraries must not implement navigation, path planning, or motion sequencing
+      that constitutes the Robot's primary task logic.
+      Libraries MAY provide hardware control primitives such as:
+        - Motor control (set speed, direction, stop, set accel, set maxV)
+        - Sensor reading (encoder counts, IMU values, distance)
+        - Timing utilities (delay, millis)
+        - Stepper motor step counting or acceleration profiles
+      Libraries MAY NOT provide functions that:
+        - Accept a target distance and/or time and autonomously drive to it
+        - Plan or optimize a route through the track
+        - Sequence multiple movements to complete scored objectives
+        - Abstract the core challenge of the event (reaching the target in the target time)
+      FLAG IF: Any library function, when called with competition parameters, produces
+      a scored outcome without additional student-written logic.
+ 
+  1d. Competitors must be able to explain the library in both purpose and function,
+      per the Building Policy (Rule 3h / Design Knowledge).
+      NOTE FOR CHECKER: Flag any library that is unrecognized, obfuscated, or whose
+      function signatures suggest event-objective abstraction.
+ 
+RULE 2 — NO ROUTE OPTIMIZATION ALGORITHMS
+An algorithm to find the optimal route is not allowed.
+Competitors must manually determine the route the Robot will take.
+FLAG IF: Code contains search algorithms, graph traversal, pathfinding (e.g., A*, Dijkstra,
+BFS, DFS), or any automated logic that selects or optimizes the sequence of waypoints
+or gate zones to visit.
+ 
+RULE 3 — NO GRAPHICAL SIMULATION OR HARDWARE EMULATION
+Testing the Robot's program on hardware other than the Robot is not permitted.
+Graphical software representations of the Track or Robot's motions are not permitted.
+Using software algorithms to automatically modify the impounded program is not permitted.
+FLAG IF: Code references a simulation environment, track model, or graphical display
+of robot movement. Flag if code appears to auto-generate movements or reveals the above to the competitor.
+ 
+RULE 4 — AUTONOMOUS OPERATION ONLY
+The Robot must remain fully autonomous. It cannot receive external instructions or
+information once a run starts.
+FLAG IF: Code contains any wireless communication (WiFi, Bluetooth, serial)
+that receives data during a run, or any remote-control logic.
+NOTE: WiFi/Bluetooth/Serial-read used only for programming (uploading code before run) is permitted.
+ 
+ 
+RULE 5 — PROGRAM MUST DEFINE ROBOT MOTIONS
+Competitors must demonstrate they are only modifying the impounded source code file(s)
+to define the Robot's motions.
+FLAG IF: Code does anything beyond defining motion sequences and sensor-based control,
+such as accessing the filesystem, making web requests, or running unrelated processes.
+ 
+SCORING CONTEXT (for evaluating whether code logic is appropriate)
+------------------------------------------------------------------
+The Robot is scored on:
+- Time Score: accuracy of run time vs. target time
+- Distance Score: how close the Robot stops to the target point
+- Gate Bonus: -15pts per gate zone entered
+- Water Bottle Bonus: -15pts per bottle moved into a gate zone
+Student code should reflect manually-determined values for distances, times, and paths.
+Automatically computed values should be flagged.
+ 
+VIOLATION SEVERITY GUIDE
+-------------------------
+CONSTRUCTION VIOLATION (severe): Using pre-written stock code that solves event objectives,
+  using a library that accepts event parameters and drives to a target.
+COMPETITION VIOLATION (moderate): Using a route optimization algorithm, graphical simulation,
+  or receiving external data during a run.
+FLAG FOR REVIEW (low confidence): Unrecognized library, suspected AI-generated code,
+  library whose purpose is unclear without further explanation from competitors.
+ 
+PERMITTED EXAMPLES
+------------------
+- AccelStepper library used to control stepper motor speed and position (PERMITTED)
+- Library for sensor used to read it's information (PERMITTED)
+- Wire or I2C library for sensor communication (PERMITTED)
+- Custom function driveForward(steps) that moves a set number of encoder steps (PERMITTED)
+- delay(ms) or millis() for timing (PERMITTED)
+ 
+PROHIBITED EXAMPLES
+-------------------
+- Function call: moveVehicle(targetDistance, targetTime) from any library (PROHIBITED)
+- Any library function that takes gate zone coordinates and navigates to them (PROHIBITED)
+- A* or Dijkstra pathfinding to select optimal gate order (PROHIBITED)
+- Library with a function like driveToTarget(cm, seconds) (PROHIBITED)

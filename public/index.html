@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SciOly Code Review Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>SciOly Code Review Assistant</h1>
+      <p class="subtitle">Pick an event's rules (or upload your own) and the team's code folder. The AI flags places a rule <em>might</em> apply and suggests what to ask the team. <strong>The Event Supervisor is the judge.</strong></p>
+    </header>
+
+    <form id="analyze-form">
+      <label class="field">
+        <span>Access code</span>
+        <input type="password" name="accessCode" id="accessCode" required autocomplete="off" />
+      </label>
+
+      <fieldset class="field rules-field">
+        <legend>Event rules</legend>
+        <div id="rules-options" class="rules-options" role="radiogroup" aria-label="Rules source">
+          <!-- radios populated from /api/rules at page load -->
+        </div>
+        <input type="file" name="rules" id="rules-file" accept=".txt,text/plain" hidden />
+        <p class="hint" id="rules-hint"></p>
+      </fieldset>
+
+      <fieldset class="field code-field">
+        <legend>Team's code</legend>
+        <div class="mode-toggle" role="radiogroup" aria-label="Upload mode">
+          <label><input type="radio" name="mode" value="folder" checked /> Whole folder</label>
+          <label><input type="radio" name="mode" value="file" /> Single file</label>
+        </div>
+        <input type="file" name="code" id="code-folder" webkitdirectory directory multiple />
+        <input type="file" name="code" id="code-file" hidden />
+        <p class="hint" id="code-hint">Pick the folder containing the team's project (.ino, .py, .cpp, etc.). Subfolders are included. Binaries and build artifacts are ignored.</p>
+        <ul id="file-preview" class="hidden"></ul>
+      </fieldset>
+
+      <button type="submit" id="submit-btn">Analyze</button>
+    </form>
+
+    <section id="status" class="hidden"></section>
+
+    <section id="result" class="hidden">
+      <div id="summary-banner"></div>
+      <div id="submitted-files" class="submitted-files hidden"></div>
+      <details id="rules-used" class="rules-used hidden">
+        <summary>Rules the AI was given for this analysis</summary>
+        <pre><code id="rules-used-text"></code></pre>
+      </details>
+      <div id="questions"></div>
+      <aside class="disclaimer">
+        <h2>What this tool did NOT check</h2>
+        <p>Code review alone cannot determine intent or match code to a physical build. Before making a decision, the Event Supervisor should verify directly:</p>
+        <ul>
+          <li>Whether the team actually built and brought the robot/vehicle.</li>
+          <li>Whether tuning constants in the code correspond to values the team actually measured.</li>
+          <li>Whether the code reviewed here is the same code running on the hardware during the run.</li>
+          <li>Whether the team can explain how their code works, in their own words.</li>
+        </ul>
+        <p><strong>Your direct observation of the team and the run is the authoritative check. This report is only a set of questions to help guide that conversation.</strong></p>
+      </aside>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

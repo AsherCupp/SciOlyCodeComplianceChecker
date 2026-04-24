@@ -1,0 +1,20 @@
+{
+  "name": "scioly-code-compliance-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Science Olympiad Robot Tour code compliance checker",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.1",
+    "multer": "^2.0.1"
+  }
+}

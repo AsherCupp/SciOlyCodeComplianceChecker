@@ -1,0 +1,108 @@
+ELECTRIC VEHICLE C - PROGRAM COMPLIANCE RULES
+=============================================
+For use with automated code compliance checking.
+Based on 2026 Science Olympiad Electric Vehicle C rules.
+ 
+OVERVIEW
+--------
+Teams design, build, and test one vehicle that uses electrical energy as its sole means
+of propulsion to travel a set distance in a set amount of time and stop close to a Target Point.
+If a microprocessor is used, it must be programmed by the team. The vehicle must be autonomous.
+ 
+EVENT PARAMETERS (for context when evaluating code)
+----------------------------------------------------
+- Target Distance: announced after impound (7.00-10.00m Regionals, to 0.01m precision at Nationals)
+- Target Time: announced after impound (10.0-20.0 seconds, 0.5s intervals)
+- Can Bonus: optional; vehicle navigates between two cans placed on a Bonus Line
+  halfway between Start and Target Point
+- Track: straight, flat, hard surface; 2.0m wide
+ 
+PROGRAM RESTRICTIONS — CHECKLIST FOR CODE REVIEW
+-------------------------------------------------
+ 
+RULE 1 — LIBRARIES
+The Vehicle's program may use libraries, subject to ALL of the following conditions:
+ 
+  1a. Libraries must not be viewed or modified by competitors during the event.
+      FLAG IF: Code imports a library that appears to have been edited or is non-standard.
+ 
+  1b. Libraries must not accept event parameters as inputs, whether directly or indirectly.
+      Event parameters include: target distance, target time, can positions,
+      bonus line location, or any competition-specific values announced on the day.
+      FLAG IF: A library function is called with distance or time values that correspond
+      to competition parameters (e.g., drive(targetDistance, targetTime),
+      runCourse(meters, seconds), stopAt(distance)).
+ 
+  1c. Libraries must not implement motion control logic that constitutes the Vehicle's
+      primary task logic.
+      Libraries MAY provide hardware control primitives such as:
+        - Motor control (set voltage, PWM duty cycle, direction, stop)
+        - Sensor reading (encoder counts, IMU values, time elapsed)
+        - Timing utilities (delay, millis)
+      Libraries MAY NOT provide functions that:
+        - Accept a target distance and/or time and autonomously drive to it
+        - Implement braking or stopping logic tied to event objectives
+        - Abstract the core challenge of the event (stopping at the right place at the right time)
+      FLAG IF: Any library function, when called with competition parameters, produces
+      a scored outcome (vehicle stopping near target) without additional student-written logic.
+ 
+  1d. Competitors must be able to explain the library in both purpose and function,
+      per the Building Policy (Rule 3i / Design Knowledge).
+      NOTE FOR CHECKER: Flag any library that is unrecognized, obfuscated, or whose
+      function signatures suggest event-objective abstraction.
+ 
+RULE 2 — INTERNET ACCESS RESTRICTIONS
+Teams may access the Internet during their Event Time only for programming purposes.
+Any non-programming internet activity is a competition violation.
+FLAG IF: Code makes HTTP requests, fetches data from external APIs, or communicates
+with any remote server during or after the run starts.
+ 
+RULE 3 — AUTONOMOUS OPERATION ONLY
+The Vehicle must not be remotely controlled or tethered.
+It cannot receive external instructions or information once a run starts.
+FLAG IF: Code contains any wireless communication (WiFi, Bluetooth, serial over USB)
+that receives data or commands during a run.
+NOTE: WiFi/Bluetooth/Serial.read used only for uploading code before the run begins is permitted
+per Rule 3c.i. The key test is whether communication occurs after the run starts.
+ 
+RULE 4 — NO GRAPHICAL SIMULATION OR EMULATION
+Testing the Vehicle's program on hardware other than the Vehicle is not permitted.
+FLAG IF: Code references a simulation environment, physics model, or graphical
+representation of the vehicle's motion or track.
+ 
+SCORING CONTEXT (for evaluating whether code logic is appropriate)
+------------------------------------------------------------------
+The Vehicle is scored on:
+- Distance Score: 2.0 pts/cm from Measurement Point to Target Point (lower is better)
+- Time Score: absolute value of (Target Time - Run Time)
+- Can Bonus: -0.5 x (110 - Inside Can Distance) if vehicle passes between both cans
+ 
+Student code should reflect manually-determined values for motor run time, encoder
+counts, or other stopping mechanisms. Automatically computed or suspiciously optimal
+values should be flagged for review.
+  
+VIOLATION SEVERITY GUIDE
+-------------------------
+CONSTRUCTION VIOLATION (severe): Using pre-written stock code that solves the event
+  objective; using a library function that accepts target distance/time and drives to it.
+COMPETITION VIOLATION (moderate): Receiving external data during a run, accessing
+  the internet for non-programming purposes during Event Time.
+FLAG FOR REVIEW (low confidence): Unrecognized library, suspected AI-generated code,
+  library whose purpose is unclear without competitor explanation.
+ 
+PERMITTED EXAMPLES
+------------------
+- Motor driver library (e.g., Adafruit Motor Shield) used to set motor speed (PERMITTED)
+- Encoder library used to count wheel rotations (PERMITTED)
+- delay(ms) to run motor for a fixed time (PERMITTED)
+- Custom function stopWhenEncoderReaches(counts) using student-written threshold (PERMITTED)
+- IMU library used to read heading for straight-line correction (PERMITTED)
+- Serial communication used only to upload code before run (PERMITTED)
+ 
+PROHIBITED EXAMPLES
+-------------------
+- Function call: driveDistance(targetMeters, targetSeconds) from any library (PROHIBITED)
+- Library that takes a target distance and handles all motor control to stop there (PROHIBITED)
+- Any serial/wireless data received after the run trigger is activated (PROHIBITED)
+- Code that fetches the day's target distance/time from a server (PROHIBITED)
+ 
