@@ -4,6 +4,8 @@ A small web app that helps Science Olympiad Event Supervisors review a team's co
 
 **This tool does not render verdicts.** It surfaces patterns in the code that might implicate a rule and suggests questions the ES can ask. The Event Supervisor is always the judge. This design is deliberate: Event Supervisors are typically not programmers, and a confident false "FAIL" from an AI could unfairly disqualify a compliant team.
 
+Walkthrough Video: https://youtu.be/frisx3U5WDE 
+
 Built-in event presets:
 - **Robot Tour**
 - **Electric Vehicle**
