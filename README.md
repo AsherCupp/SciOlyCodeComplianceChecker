@@ -8,7 +8,7 @@ A small web app that helps Science Olympiad Event Supervisors review a team's co
 
 A short screencast aimed at non-technical reviewers :
 
-▶ **[Watch on YouTube](https://youtu.be/frisx3U5WDE)**
+▶ **[Watch on YouTube](https://youtu.be/zazv3QgzVM8)**
 
 Built-in event presets:
 - **Robot Tour**
