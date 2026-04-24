@@ -286,6 +286,30 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
   word-break: break-word;
 }
 
+.code-summary {
+  background: #eef3fb;
+  border: 1px solid #cfdcee;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.code-summary-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #3c5373;
+  margin-bottom: 6px;
+}
+
+.code-summary-body {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
 #report {
   background: var(--card);
   border: 1px solid var(--border);

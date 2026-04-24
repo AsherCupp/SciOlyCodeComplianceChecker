@@ -98,14 +98,14 @@ app.post(
       return res.status(err.status || 400).json({ error: err.message });
     }
 
-    const codeSummary = {
+    const bundleStats = {
       fileCount: bundle.acceptedPaths.length,
       totalBytes: bundle.totalBytes,
       skippedCount: bundle.skipped.length
     };
 
     try {
-      const { questions, questionCount } = await analyze({
+      const { codeSummary, questions, questionCount } = await analyze({
         rulesText,
         codeBundle: bundle.bundleText,
         codePaths: bundle.acceptedPaths,
@@ -117,12 +117,13 @@ app.post(
         ip,
         rulesSource,
         rulesBytes,
-        ...codeSummary,
+        ...bundleStats,
         questionCount,
         durationMs
       });
 
       res.json({
+        codeSummary,
         questions,
         questionCount,
         rulesSource,
@@ -136,7 +137,7 @@ app.post(
         ip,
         rulesSource,
         rulesBytes,
-        ...codeSummary,
+        ...bundleStats,
         questionCount: null,
         durationMs,
         error: err.message

@@ -10,6 +10,40 @@ Built-in event presets:
 
 Custom rules can also be uploaded as a `.txt` file.
 
+## Screenshots
+
+<!-- Replace each placeholder with an actual PNG dropped into the images/ folder. Keep filenames exactly as below so links don't break. -->
+
+**Main form — pick event, enter access code, choose code folder.**
+
+![Main form](images/ui-main-form.png)
+
+**Report with flagged questions — each question names a pattern, labels priority, and suggests what to ask the team.**
+
+![Report with questions](images/ui-report-flagged.png)
+
+**Rules the AI was given — expandable transparency pane on every report.**
+
+![Rules-used pane expanded](images/ui-rules-expanded.png)
+
+**No concerns flagged — clean student submission.**
+
+![No concerns flagged](images/ui-no-concerns.png)
+
+## Walkthrough video
+
+A ~5-minute screencast aimed at non-technical reviewers (script in [`VIDEO-SCRIPT.md`](VIDEO-SCRIPT.md)):
+
+<!-- Replace with actual video link once uploaded; YouTube unlisted is fine. -->
+
+> _Video link coming soon._
+
+## For Event Supervisors / SciOly staff
+
+If you're evaluating whether to adopt this tool, start with [`FOR-EVENT-SUPERVISORS.md`](FOR-EVENT-SUPERVISORS.md) — it's written in plain language, no setup required. For context on *why* the tool works the way it does, see [`DESIGN-NOTES.md`](DESIGN-NOTES.md).
+
+The rest of this README is the technical setup + deployment guide.
+
 ## How it works
 
 - **Frontend:** single static page (`public/`) with a rules-source selector, access code field, and folder picker. Each flagged question renders as a card with a priority label, what the AI noticed, why it might matter, and a suggested question for the team.

@@ -7,6 +7,8 @@ const submittedFilesEl = document.getElementById('submitted-files');
 const questionsEl = document.getElementById('questions');
 const rulesUsedEl = document.getElementById('rules-used');
 const rulesUsedTextEl = document.getElementById('rules-used-text');
+const codeSummaryEl = document.getElementById('code-summary');
+const codeSummaryBodyEl = document.getElementById('code-summary-body');
 
 const folderInput = document.getElementById('code-folder');
 const fileInput = document.getElementById('code-file');
@@ -141,6 +143,8 @@ function hideResult() {
   rulesUsedEl.classList.add('hidden');
   rulesUsedEl.open = false;
   rulesUsedTextEl.textContent = '';
+  codeSummaryEl.classList.add('hidden');
+  codeSummaryBodyEl.textContent = '';
 }
 
 function renderRulesUsed(rulesText) {
@@ -150,6 +154,17 @@ function renderRulesUsed(rulesText) {
   }
   rulesUsedTextEl.textContent = rulesText;
   rulesUsedEl.classList.remove('hidden');
+}
+
+function renderCodeSummary(text) {
+  const trimmed = (text || '').trim();
+  if (!trimmed) {
+    codeSummaryEl.classList.add('hidden');
+    codeSummaryBodyEl.textContent = '';
+    return;
+  }
+  codeSummaryBodyEl.textContent = trimmed;
+  codeSummaryEl.classList.remove('hidden');
 }
 
 function renderQuestionCard(q, num) {
@@ -220,7 +235,7 @@ function renderSubmittedFiles(accepted, skipped, rulesSource) {
   submittedFilesEl.classList.remove('hidden');
 }
 
-function renderResult({ questions, questionCount, acceptedFiles, skippedFiles, rulesSource, rulesText }) {
+function renderResult({ codeSummary, questions, questionCount, acceptedFiles, skippedFiles, rulesSource, rulesText }) {
   resultEl.classList.remove('hidden');
   const count = typeof questionCount === 'number' ? questionCount : (questions || []).length;
   let title;
@@ -233,6 +248,7 @@ function renderResult({ questions, questionCount, acceptedFiles, skippedFiles, r
     `<div class="summary-sub">The Event Supervisor makes the final call.</div>`;
   renderSubmittedFiles(acceptedFiles, skippedFiles, rulesSource);
   renderRulesUsed(rulesText);
+  renderCodeSummary(codeSummary);
   renderQuestions(questions || []);
 }
 
