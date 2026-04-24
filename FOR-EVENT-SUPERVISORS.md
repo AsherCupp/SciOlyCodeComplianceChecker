@@ -15,9 +15,9 @@ It gives you back a short list of **questions to review with the team** — thin
 
 - **It is not a judge.** It does not say "pass" or "fail." It does not tell you to accept or disqualify anyone.
 - **It is not automated enforcement.** Every question is phrased as "here's what the AI noticed; here's what you might want to ask the team." You decide what to do with that.
-- **It is not a substitute for watching the run.** Code review alone can't tell you whether the team built the robot, whether the code on the chassis matches what was submitted, or whether a student can explain what they wrote.
+- **It is not a substitute for a build interview.** Code review alone can't tell you whether the team built the robot, whether the code on the chassis matches what was submitted, or whether a student can explain what they wrote.
 
-The tool is deliberately designed this way. Event Supervisors are typically not programmers — if the AI confidently declared a team "non-compliant" and got it wrong, you'd have no way to catch the error. So the AI is restricted to pointing and asking; you remain the authority.
+The tool is deliberately designed this way. Event Supervisors are not necessarily programmers — if the AI confidently declared a team "non-compliant" and got it wrong, you'd have no way to catch the error. So the AI is restricted to pointing and asking; you remain the authority.
 
 ## What an ES actually sees on competition day
 
