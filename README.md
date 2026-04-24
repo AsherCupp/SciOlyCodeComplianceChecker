@@ -4,41 +4,17 @@ A small web app that helps Science Olympiad Event Supervisors review a team's co
 
 **This tool does not render verdicts.** It surfaces patterns in the code that might implicate a rule and suggests questions the ES can ask. The Event Supervisor is always the judge. This design is deliberate: Event Supervisors are typically not programmers, and a confident false "FAIL" from an AI could unfairly disqualify a compliant team.
 
-Walkthrough Video: https://youtu.be/frisx3U5WDE 
+## Walkthrough video
+
+A short screencast aimed at non-technical reviewers (script in [`VIDEO-SCRIPT.md`](VIDEO-SCRIPT.md)):
+
+▶ **[Watch on YouTube](https://youtu.be/frisx3U5WDE)**
 
 Built-in event presets:
 - **Robot Tour**
 - **Electric Vehicle**
 
 Custom rules can also be uploaded as a `.txt` file.
-
-## Screenshots
-
-<!-- Replace each placeholder with an actual PNG dropped into the images/ folder. Keep filenames exactly as below so links don't break. -->
-
-**Main form — pick event, enter access code, choose code folder.**
-
-![Main form](images/ui-main-form.png)
-
-**Report with flagged questions — each question names a pattern, labels priority, and suggests what to ask the team.**
-
-![Report with questions](images/ui-report-flagged.png)
-
-**Rules the AI was given — expandable transparency pane on every report.**
-
-![Rules-used pane expanded](images/ui-rules-expanded.png)
-
-**No concerns flagged — clean student submission.**
-
-![No concerns flagged](images/ui-no-concerns.png)
-
-## Walkthrough video
-
-A ~5-minute screencast aimed at non-technical reviewers (script in [`VIDEO-SCRIPT.md`](VIDEO-SCRIPT.md)):
-
-<!-- Replace with actual video link once uploaded; YouTube unlisted is fine. -->
-
-> _Video link coming soon._
 
 ## For Event Supervisors / SciOly staff
 
